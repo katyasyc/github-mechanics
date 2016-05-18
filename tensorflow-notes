@@ -1,19 +1,24 @@
 #notes about tensorflow
 
+#general
 tensorflow is efficient because it performs operations in C++, rather than python, and doesn't switch back and forth at every step (like numpy and other Python libraries)
   connection to "backend" is called "session"
+   "session" usually requires building a computational graph
+   "interactive sessions" allow the user to interweave building and running operations
  "placeholder" = input
  "variable" = modifiable "tensor"
+ "tensor" = data type in tensorflow that can be passed from node to node. Tensors must be n-dimensional arrays or lists.
+ a 1 dimensional tensor is a vector, 2 is a matrix, etc.
+
   Parameters are usually variables
- set weights and bias to zero; they are then learned
- define cost, tell model to minimize cost (i.e., distance between softmax matrix and actual answer (in form of one-hot vector)
+
 
 1st program:
-#define model
+#define a softmax regression model in tensorflow
 #import tensorflow
 import tensorflow as tf
 #define "placeholder", which is input, for dataset
-#image vectors have 784 dimensions, "None" means batches can be of any size
+#image vectors have 784 dimensions, "None" means batches can be of any size (that's defined later.)
 x = tf.placeholder(tf.float32, [None, 784])
 #Create modifiable "variables" for weights and biases for our model
 #initially set to zero, change as the machine learns
@@ -29,6 +34,7 @@ y = tf.nn.softmax(tf.matmul(x, W) + b)
 y_ = tf.placeholder(tf.float32, [None, 10])
 #implement cross-entropy
 cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
+#--Question: why use cross-entropy when the goal is to find the correct answer? Why not train on the argmax from the evaluation section?)
 #optimize using gradient descent optimizer (in this case) can implement any optimization algorithm from TensorFlow's library
 train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 #initialize the variables we created, to 0
@@ -42,8 +48,8 @@ for i in range(1000):
   sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 
 #evaluation
-#argmax(y,1) returns the highest number in the softmax result layer—most likely answer
-#argmax(y_,1) returns the 1 in the answer matrix, corresponding to the correct answer
+#argmax(y,1) returns the highest number in the softmax result vector—-ie, the highest-ranked answer
+#argmax(y_,1) returns the 1 in the answer vector, corresponding to the correct answer
 #returns list of booleans
 correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
 #average booleans and return probability of correct answer
