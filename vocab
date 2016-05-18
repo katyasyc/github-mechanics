@@ -7,7 +7,10 @@ It operates like long term memory, in that the final layer "forgets" a portion o
 For example, it might "forget" the gender of subject encoding when a new subject appears with a different gender.
 Then it would re-encode the gender to match the new subject.
 
-max-pooling layer takes "most important" feature from area of previous layer
+convnet:
+   convolutional layer ??
+   max-pooling layer takes "most important" feature from area of previous layer
+   fully-connected layer does high level reasoning; each neuron is connected to ALL neurons in previous layer. No space; visualize as 1-dim
 
  rectified linear activations: f(x) = 0 if x < 0, x otherwise (setting a hard lower limit at 0)
  
