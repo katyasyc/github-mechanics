@@ -1,3 +1,26 @@
 #vocab
 
 unigram = one word
+
+LSTM = Long Short Term Memory, a type of recurrent neural network that does better at remembering details that come earlier than the immediate context.
+It operates like long term memory, in that the final layer "forgets" a portion of the "short-term" memory.
+For example, it might "forget" the gender of subject encoding when a new subject appears with a different gender.
+Then it would re-encode the gender to match the new subject.
+
+max-pooling layer takes "most important" feature from area of previous layer
+
+ rectified linear activations: f(x) = 0 if x < 0, x otherwise (setting a hard lower limit at 0)
+ 
+regularization: avoiding overfitting
+
+l1/l2 regularization: disfavors large weights
+
+max norm constraint: scales weights to a limit, either l1 or l2 regularization (l1 = linear, l2 = quadratic)
+ 
+dropout: random probability of discounting a node from consideration entirely
+
+normalization:
+  avoid problems with some input overwhelming others, sets them all to a standard scale
+
+softmax layer:
+  takes real number input and outputs a probability distribution, all #s between 0 and 1, all sum to 1
