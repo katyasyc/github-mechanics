@@ -8,7 +8,7 @@ tensorflow is efficient because it performs operations in C++, rather than pytho
  "placeholder" = input
  "variable" = modifiable "tensor"
  "tensor" = data type in tensorflow that can be passed from node to node. Tensors must be n-dimensional arrays or lists.
- a 1 dimensional tensor is a vector, 2 is a matrix, etc.
+ a 1 rank tensor is a vector, rank 2 is a matrix, etc.
 
   Parameters are usually variables
 
