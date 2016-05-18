@@ -1,15 +1,24 @@
 #notes about tensorflow
 
+tensorflow is efficient because it performs operations in C++, rather than python, and doesn't switch back and forth at every step (like numpy and other Python libraries)
+  connection to "backend" is called "session"
+ "placeholder" = input
+ "variable" = modifiable "tensor"
+  Parameters are usually variables
+ set weights and bias to zero; they are then learned
+ define cost, tell model to minimize cost (i.e., distance between softmax matrix and actual answer (in form of one-hot vector)
+
 1st program:
 #define model
 #import tensorflow
 import tensorflow as tf
 #define "placeholder", which is input, for dataset
+#image vectors have 784 dimensions, "None" means batches can be of any size
 x = tf.placeholder(tf.float32, [None, 784])
 #Create modifiable "variables" for weights and biases for our model
 #initially set to zero, change as the machine learns
 #W for weight, b for bias
-#image vectors have 784 dimensions, result softmax vector has 10 dimensions for 10 possible digits [0,10]
+#result softmax vector has 10 dimensions for 10 possible digits [0,10]
 W = tf.Variable(tf.zeros([784, 10]))
 b = tf.Variable(tf.zeros([10]))
 #implement model
