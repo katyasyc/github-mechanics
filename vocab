@@ -33,11 +33,4 @@ dev set: trains hyperparameters?
 
 one-hot vector: vector with only one data point (all zeros except one 1)
 
-tensorflow is efficient because it performs operations in an efficient language, rather than python which is inefficient.
- "placeholder" = input
- "variable" = modifiable "tensor"
-  Parameters are usually variables
- set weights and bias to zero; they are then learned
- define cost, tell model to minimize cost (i.e., distance between softmax matrix and actual answer (in form of one-hot vector)
- 
- input 
+
