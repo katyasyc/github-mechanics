@@ -27,17 +27,20 @@ softmax layer:
 
 batch = entire test set
 batch gradient descent = use entire test set to calculate gradient and backpropagate at each iteration
+better results, use when sample size is bottleneck
 
 minibatch = small, randomly chosen subset of test set 
 minibatch gradient descent = use many minibatches to calculate gradient and backpropagate in each iteration
 b = batch size
 can be fixed, or modifiable hyperparameter
+"best of both worlds" compared to stochastic and batch gradient descent
 
 stochastic gradient descent uses only one example to perform gradient descent update, 
    then runs backpropagation, randomly pick another example, iterate n times.
    much faster than gradient descent, because you don't have to calculate the entire set
+   use when computing time is the bottleneck
 
-dev set: trains hyperparameters?
+dev set: used to train and evaluate different models for hyperparameters
 
 one-hot vector: vector with only one data point (all zeros except one 1)
 
