@@ -1,0 +1,43 @@
+#notes about tensorflow
+
+1st program:
+#define model
+#import tensorflow
+import tensorflow as tf
+#define "placeholder", which is input, for dataset
+x = tf.placeholder(tf.float32, [None, 784])
+#Create modifiable "variables" for weights and biases for our model
+#initially set to zero, change as the machine learns
+#W for weight, b for bias
+#image vectors have 784 dimensions, result softmax vector has 10 dimensions for 10 possible digits [0,10]
+W = tf.Variable(tf.zeros([784, 10]))
+b = tf.Variable(tf.zeros([10]))
+#implement model
+y = tf.nn.softmax(tf.matmul(x, W) + b)
+
+#train model 
+#new placeholder to input the correct answers
+y_ = tf.placeholder(tf.float32, [None, 10])
+#implement cross-entropy
+cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
+#optimize using gradient descent optimizer (in this case) can implement any optimization algorithm from TensorFlow's library
+train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+#initialize the variables we created, to 0
+init = tf.initialize_all_variables()
+#launch the model in a Session, and run the operation that initializes the variables
+sess = tf.Session()
+sess.run(init)
+#run training 1000 times, batch size 100 (randomly chosen from training set n = 55,000—stochastic gradient descent)
+for i in range(1000):
+  batch_xs, batch_ys = mnist.train.next_batch(100)
+  sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
+
+#evaluation
+#argmax(y,1) returns the highest number in the softmax result layer—most likely answer
+#argmax(y_,1) returns the 1 in the answer matrix, corresponding to the correct answer
+#returns list of booleans
+correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
+#average booleans and return probability of correct answer
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+#returns single number for accuracy
+print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
