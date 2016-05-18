@@ -9,8 +9,7 @@ tensorflow is efficient because it performs operations in C++, rather than pytho
  "variable" = modifiable "tensor"
  "tensor" = data type in tensorflow that can be passed from node to node. Tensors must be n-dimensional arrays or lists.
  a 1 rank tensor is a vector, rank 2 is a matrix, etc.
-
-  Parameters are usually variables
+Always use sess = tf.Session(config=tf.ConfigProto(intra_op_parallelism_threads=10))
 
 
 1st program:
@@ -34,19 +33,18 @@ y = tf.nn.softmax(tf.matmul(x, W) + b)
 y_ = tf.placeholder(tf.float32, [None, 10])
 #implement cross-entropy
 cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
-#--Question: why use cross-entropy when the goal is to find the correct answer? Why not train on the argmax from the evaluation section?)
 #optimize using gradient descent optimizer (in this case) can implement any optimization algorithm from TensorFlow's library
 train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 #initialize the variables we created, to 0
 init = tf.initialize_all_variables()
 #launch the model in a Session, and run the operation that initializes the variables
-sess = tf.Session()
+sess = tf.Session(config=tf.ConfigProto(intra_op_parallelism_threads=10))
 sess.run(init)
 #run training 1000 times, batch size 100 (randomly chosen from training set n = 55,000—stochastic gradient descent)
 for i in range(1000):
   batch_xs, batch_ys = mnist.train.next_batch(100)
   sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
-
+  
 #evaluation
 #argmax(y,1) returns the highest number in the softmax result vector—-ie, the highest-ranked answer
 #argmax(y_,1) returns the 1 in the answer vector, corresponding to the correct answer
