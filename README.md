@@ -19,5 +19,6 @@ Contribute in the style of the project to the best of your abilities. This may m
 ARKcat/src/models.py — example interface program
 
 ARKcat/README.md — jesse's readme
-
+chmod 777 (anyone can read, write, execute)
 source venv/bin/activate
+ssh -p 1255 katya@zin.cs.washington.edu
